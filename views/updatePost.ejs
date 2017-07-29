@@ -4,7 +4,7 @@
   <div class="main container-fluid">
 
     <div class="row">
-      <div class="col-md-9 col-sm-9 col-xs-12">
+      <div class="col-md-5 offset-md-3 col-sm-9 col-xs-12">
         <h3>UPDATE POST</h3>
         <form action="/addpost" method="POST">
           <div class="form-group">
@@ -21,7 +21,7 @@
             <input class="form-control" type="text" placeholder="Image Link (https://imgur.com/)" name="imagelink" value="<%= posts.imagelink %>">
           </div>
           <div class="form-group">
-            <button class="btn btn-success btn-block" type="submit">SUBMIT POST</button>
+            <button class="btn btn-success btn-block" type="submit">UPDATE POST</button>
           </div>
 
         </form>

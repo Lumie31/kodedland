@@ -26,7 +26,7 @@ router.get("/", (req, res) => {
       res.render("index", {
         pagetitle: "kodeland",
         posts: data,
-        isLoggedIn: true,
+        isLoggedIn: false,
         user: users[Math.floor(Math.random() * users.length)]
       });
     })
@@ -41,6 +41,14 @@ router.get("/addpost", (req, res) => {
     pagetitle: "Add Post"
   });
 });
+
+router.get("/signup", (req, res) => {
+  res.render("signup");
+})
+
+// router.post("/signup", (req, res) => {
+
+// })
 
 router.post("/addpost", (req, res) => {
   let title = req.body.title.trim();
@@ -76,7 +84,6 @@ router.post("/deletepost/:id", (req, res) => {
   });
 });
 
-// router.put('/updatepost/:id', )
 router.get("/updatepost/:id", (req, res) => {
   let id = req.params.id;
   Post.findById(id, (err, data) => {
@@ -92,14 +99,43 @@ router.get("/updatepost/:id", (req, res) => {
   });
 });
 
+
 router.post("/updatepost/:id", (req, res) => {
   let id = req.params.id;
-  Post.findOneAndUpdate(id).then( data => {
-    return res.render('updatepost');
-  }).catch( (err) => {
-    console.log(err);
-  })
-})
+  let title = req.body.title.trim();
+  let content = req.body.content.trim();
+  let tags = req.body.tags.replace(/[,\s+]/g, " ").split(/\s+/g);
+  let imagelink =
+    req.body.imagelink.trim() ||
+    "http://www.arabamerica.com/wp-content/themes/arabamerica/assets/img/thumbnail-default.jpg";
+  Post.findOneAndUpdate(
+    { _id: id },
+    {
+      $set: {
+        title,
+        content,
+        tags,
+        imagelink
+      }
+    },
+    { new: true },
+    err => {
+      console.log(err);
+    }
+  );
+  return res.redirect("/");
+});
+
+// router.post("/updatepost/:id", (req, res) => {
+//   let id = req.params.id;
+//   Post.findOneAndUpdate(id)
+//     .then(data => {
+//       return res.render("updatepost");
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// });
 
 router.post("/searchposts", (req, res) => {
   let search = req.body.search.trim();
@@ -107,7 +143,7 @@ router.post("/searchposts", (req, res) => {
   myquery
     .find()
     .then(data => {
-      console.log(data)
+      console.log(data);
       return res.render("searchposts", {
         pagetitle: "Search Results",
         posts: data,

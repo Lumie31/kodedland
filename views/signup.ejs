@@ -1,0 +1,42 @@
+<% include partials/head %>
+  <div class="container sign">
+    <div class="row">
+      <div class="col-md-5 offset-md-3 col-sm-5 offset-sm-3 bg">
+        <h3>REGISTRATION FORM</h3>
+        <p>Please fill the form below...Thanks!!!</p>
+        <form action="/signup" method="POST" class="form-group">
+          <div class="form-inline form-group">
+            <input type="text" placeholder="Firstname" required class="form-control" name="firstname">
+            <hr>                        
+            <input type="text" placeholder="Lastname" required class="form-control" name="lastname">
+          </div>
+          <div class="form-group has-danger">
+            <div class="input-group">
+              <div class="input-group-addon">@</div>
+              <input type="text" placeholder="Username" required class="form-control form-control-danger" name="username">
+            </div>
+              <div class="form-control-feedback">Oops Try Again!!!</div>
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-addon"><i class='fa fa-lock'></i></div>
+            <input type="password" placeholder="Password" required class="form-control" name="password">
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-addon"><i class='fa fa-lock'></i></div>
+            <input type="password" placeholder="Confirm Password" required class="form-control" name="password">
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Email address" required class="form-control">
+          </div>
+          <div class="form-group">
+            <input type="phonenumber" placeholder="Phone Number" required class="form-control" minlength="11" maxlength="11" name="phonenumber">
+          </div>
+          <div class="">
+            <button type="submit" class="btn btn-primary btn-block">SIGN UP</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <% include partials/foot %>

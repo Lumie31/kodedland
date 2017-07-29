@@ -18,7 +18,7 @@
                   <span><%= moment(d.created).format('MMM Do YYYY') %></span> <br/>
                   <span><a><%= d.comments.length%> comments</a></span>
                   <form action="/deletepost/<%= d._id %>" method="POST"><button class="btn btn-danger">Delete Post</button></form>
-                  <form action="/updatepost/<%= d._id %>" method="GET"><button class="btn btn-default">Update Post</button></form>
+                  <a href="/updatepost/<%= d._id %>">Update Post</a>
                 </div>
               </div>
             </div>
@@ -43,10 +43,12 @@
             <% } else { %>
 
           <form action="" class="loginform">
-            <div class="form-group">
+            <div class="form-group input-group">
+              <div class="input-group-addon"><i class="fa fa-user"></i></div>
               <input type="text" placeholder="Username" required class="form-control">
             </div>
-            <div class="form-group">
+            <div class="form-group input-group">
+              <div class="input-group-addon"><i class="fa fa-eye-slash"></i></div>              
               <input type="password" placeholder="Password" required class="form-control">
             </div>
             <div class="form-check">
@@ -56,6 +58,9 @@
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary btn-block">LOGIN</button>
+            </div>
+            <div class="form-group">
+              <a href="/signup" class="btn btn-success btn-block">SIGNUP</a>
             </div>
           </form>
             <% } %>
