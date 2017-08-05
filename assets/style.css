@@ -4,14 +4,9 @@
 
 .post {
   border: 1px solid skyblue;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
-  /*margin-bottom: 5px;*/
 }
-
-/*.loginform {
-  margin: 5px;
-}*/
 
 .isLoggedIn {
   border: 1px solid skyblue;
@@ -20,4 +15,8 @@
 
 .sign {
   margin-top: 40px;
+}
+
+#update {
+  display: inline;
 }
