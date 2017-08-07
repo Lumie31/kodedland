@@ -4,13 +4,14 @@ const moment = require("moment");
 const Post = require("./models/PostSchema");
 const User = require("./models/UserSchema");
 
+// Get an instance of Express Router
 const router = express.Router();
 
-// Middleware that defines default characteristic
+// Middleware to use for all requests
 router.use((req, res, next) => {
   res.locals.title = "KodedLand";
   res.locals.moment = moment;
-  next();
+  next(); //make sure we got to next routes and don't stop here
 });
 
 let isLoggedIn = false;
