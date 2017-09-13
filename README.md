@@ -12,7 +12,7 @@
 #### Post
 - Title
 - Content
-- File attachments(s)
+- File attachment(s)
 - Post tags
 
 #### Users

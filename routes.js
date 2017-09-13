@@ -1,8 +1,10 @@
 // Require needed modules and models...
 const express = require("express");
 const moment = require("moment");
-const Post = require("./models/PostSchema");
+const Post = require(".F/models/PostSchema");
 const User = require("./models/UserSchema");
+const request = require('request');
+const expressValidator = require('express-validator');
 
 // Get an instance of Express Router
 const router = express.Router();
@@ -44,16 +46,40 @@ router.get("/addpost", (req, res) => {
 });
 
 // Post request that sends created post to home-route
+// router.route('/addpost').post( (req, res) => {
+
+// })
+
 router.post('/addpost', (req, res) => {
   let post = {
+    // Get form values
     title: req.body.title.trim(),
     content: req.body.content.trim(),
     tags: req.body.tags.replace(/[,\s+]/g, " ").split(/\s+/g),
     author: req.body.author || "Anonymous",
-    imagelink:
-    req.body.imagelink ||
-    "http://www.arabamerica.com/wp-content/themes/arabamerica/assets/img/thumbnail-default.jpg",  
+    // imagelink:
+    // req.body.imagelink ||
+    // "http://www.arabamerica.com/wp-content/themes/arabamerica/assets/img/thumbnail-default.jpg",  
   }
+    if (req.files.imagelink) {
+      console.log('Uploading Image');
+     } //else {
+    //   var imagelink = "http://www.arabamerica.com/wp-content/themes/arabamerica/assets/img/thumbnail-default.jpg",  
+    // }
+
+    // Form validation
+    req.checkBody('title', 'Title is important').notEmpty();
+    req.checkBody('content', 'Content is important').notEmpty();
+    req.checkBody('tags', 'Tag is important').notEmpty();
+
+    // Check for errors
+    // var errors = req.validateErrors();
+
+    // if (errors) {
+    //   res.render()
+    // }
+
+
   Post.create(post).then( () => {
     return res.redirect('/');
   }).catch( (err) => {
@@ -85,7 +111,9 @@ router.post('/login', (req, res) => {
 
 
 router.get("/signup", (req, res) => {
-  res.render("signup");
+  res.render("signup", {
+    "title": "SignUp",
+  });
 });
 
 router.post("/signup", (req, res) => {
@@ -99,6 +127,16 @@ router.post("/signup", (req, res) => {
     emailaddress : req.body.emailaddress.trim(),
     phonenumber : req.body.phonenumber.trim(),
   }
+
+  // Form validation
+  req.checkBody('firstname', 'firstname field is important').notEmpty();
+  req.checkBody('username', 'username field is important').notEmpty();
+  req.checkBody('lastname', 'lastname field is important').notEmpty();
+  req.checkBody('password', 'Password field is important').notEmpty();
+  req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+  req.checkBody('emailaddress', 'This field is important').isEmail();
+  req.checkBody('phonenumber', 'This field is important').notEmpty();
+
   User.create(person).then( (savedUser) => {
     console.log("Saved to Database!")
     isLoggedIn = true;

@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const expressValidator = require('express-validator');
 
 const routes = require("./routes");
 
@@ -21,10 +22,10 @@ let db = mongoose
     console.log(err);
   });
 
-// Define our app using express
+// Define our app using express/Set our express function equal to the app variable/ Instantiating the express object into a variable app
 const app = express();
 
-// View Engine
+// View Engine Setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -38,6 +39,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(expressValidator());
 
 // Middleware that links routes.js file to server.js
 app.use("/", routes); //Route Middleware ==> All our routes will be prefixed with "/"
